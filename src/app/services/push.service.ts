@@ -9,6 +9,7 @@ export class PushService {
 
   MESSAGES_KEY = 'messages';
   messages: OSNotificationPayload[] = [];
+  userId: string;
 
   constructor(
     private oneSignal: OneSignal,
@@ -31,6 +32,10 @@ export class PushService {
       // do something when a notification is opened
     });
 
+    this.oneSignal.getIds().then( info => {
+      this.userId = info.userId;
+    });
+
     this.oneSignal.endInit();
   }
 
@@ -51,5 +56,11 @@ export class PushService {
 
   async loadMessages() {
     this.messages = await this.storage.get( this.MESSAGES_KEY ) || [];
+  }
+
+  async dropMessages() {
+    await this.storage.remove(this.MESSAGES_KEY);
+    this.messages = [];
+    this.saveMessages();
   }
 }

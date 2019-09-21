@@ -3,11 +3,25 @@
     <ion-title>
       Push App
     </ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="pushService.dropMessages()">
+        <ion-icon color="primary" slot="icon-only" name="trash"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-list>
+    <ion-list-header>
+      <ion-label>Usuario</ion-label>
+    </ion-list-header>
+
+    <ion-item>
+      <ion-label>{{ pushService.userId }}</ion-label>
+    </ion-item>
+
     <ion-list-header>
       <ion-label>Mensajes</ion-label>
     </ion-list-header>
